@@ -1,0 +1,1460 @@
+mysql> SHOW DATABASES;
+
++--------------------+
+
+| Database           |
+
++--------------------+
+
+| human_friends      |
+
+| information_schema |
+
+| mysql              |
+
+| performance_schema |
+
+| sys                |
+
++--------------------+
+
+5 rows in set (0,02 sec)
+
+
+
+mysql> DROP DATABASE IF EXISTS human_friends;
+
+Query OK, 1 row affected (0,25 sec)
+
+
+
+mysql> 
+
+mysql> CREATE DATABASE human_friends;
+
+Query OK, 1 row affected (0,03 sec)
+
+
+
+mysql> 
+
+mysql> USE human_friends;
+
+Database changed
+
+mysql> 
+
+mysql> DROP TABLE IF EXISTS all_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE all_animals (
+
+    -> id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->    birthdate DATE,
+
+    ->     commands VARCHAR(100)
+
+    -> ) COMMENT 'Все животные';
+
+Query OK, 0 rows affected (0,16 sec)
+
+
+
+mysql> INSERT INTO all_animals (id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll'),
+
+    -> (4,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (5,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (6,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump'),
+
+    -> (7,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (8,'Peanut','Hamster','2021-08-01','Roll, Spin'),
+
+    -> (9,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (10,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (11,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop'),
+
+    -> (12,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (13,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (14,'Sahara','Camel','2015-08-14','Walk, Run'),
+
+    -> (15,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (16,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 16 rows affected (0,03 sec)
+
+Records: 16  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS pets;
+
+Query OK, 0 rows affected, 1 warning (0,02 sec)
+
+
+
+mysql> CREATE TABLE pets (
+
+    -> pet_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->    birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (pet_id) REFERENCES all_animals(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Домашние животные';
+
+Query OK, 0 rows affected (0,23 sec)
+
+
+
+mysql> INSERT INTO pets (pet_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll'),
+
+    -> (4,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (5,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (6,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump'),
+
+    -> (7,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (8,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+Query OK, 8 rows affected (0,03 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS pack_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE pack_animals (
+
+    -> pack_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (pack_id) REFERENCES all_animals(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Вьючные животные';
+
+Query OK, 0 rows affected (0,18 sec)
+
+
+
+mysql> INSERT INTO pack_animals (pack_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop'),
+
+    -> (4,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (5,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (6,'Sahara','Camel','2015-08-14','Walk, Run'),
+
+    -> (7,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (8,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 8 rows affected (0,02 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS dogs;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE dogs (
+
+    -> dog_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->    type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (dog_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Собаки';
+
+Query OK, 0 rows affected (0,15 sec)
+
+
+
+mysql> INSERT INTO dogs (dog_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll');
+
+Query OK, 3 rows affected (0,03 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS cats;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE cats (
+
+    -> cat_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->    name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (cat_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Кошки';
+
+Query OK, 0 rows affected (0,11 sec)
+
+
+
+mysql> INSERT INTO cats (cat_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (2,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (3,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump');
+
+Query OK, 3 rows affected (0,02 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS hamsters;
+
+Query OK, 0 rows affected, 1 warning (0,00 sec)
+
+
+
+mysql> CREATE TABLE hamsters (
+
+    -> hamster_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (hamster_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Хомяки';
+
+Query OK, 0 rows affected (0,12 sec)
+
+
+
+mysql> INSERT INTO Hamsters (hamster_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (2,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+ERROR 1146 (42S02): Table 'human_friends.Hamsters' doesn't exist
+
+mysql> INSERT INTO hamsters (hamster_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (2,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+Query OK, 2 rows affected (0,03 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS horses;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE horses (
+
+    -> horse_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (horse_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Лошади';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO Horses (horse_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop');
+
+ERROR 1146 (42S02): Table 'human_friends.Horses' doesn't exist
+
+mysql> INSERT INTO horses (horse_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop');
+
+Query OK, 3 rows affected (0,05 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS camels;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE camels (
+
+    -> camel_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (camel_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Верблюды';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO camels (camel_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (2,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (3,'Sahara','Camel','2015-08-14','Walk, Run');
+
+Query OK, 3 rows affected (0,04 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS donkeys;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE donkeys (
+
+    -> donkey_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (donkey_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Ослы';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO donkeys (donkey_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (2,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 2 rows affected (0,04 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> INSERT INTO donkeys (donkey_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (2,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+ERROR 1062 (23000): Duplicate entry '1' for key 'donkeys.PRIMARY'
+
+mysql> 
+
+mysql> SHOW TABLES
+
+    -> ^C
+
+mysql> SHOW TABLES;
+
++-------------------------+
+
+| Tables_in_human_friends |
+
++-------------------------+
+
+| all_animals             |
+
+| camels                  |
+
+| cats                    |
+
+| dogs                    |
+
+| donkeys                 |
+
+| hamsters                |
+
+| horses                  |
+
+| pack_animals            |
+
+| pets                    |
+
++-------------------------+
+
+9 rows in set (0,00 sec)
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.camels;
+
++----------+--------+-------+------------+------------------+
+
+| camel_id | name   | type  | birthdate  | commands         |
+
++----------+--------+-------+------------+------------------+
+
+|        1 | Sandy  | Camel | 2016-11-03 | Walk, Carry Load |
+
+|        2 | Dune   | Camel | 2018-12-12 | Walk, Sit        |
+
+|        3 | Sahara | Camel | 2015-08-14 | Walk, Run        |
+
++----------+--------+-------+------------+------------------+
+
+3 rows in set (0,01 sec)
+
+
+
+mysql> DELETE
+
+    -> FROM human_friends.camels
+
+    -> WHERE type = 'Camel';
+
+Query OK, 3 rows affected (0,03 sec)
+
+
+
+mysql> 
+
+mysql> SELECT *
+
+    -> FROM human_friends.camels;
+
+Empty set (0,01 sec)
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.horses
+
+    -> UNION
+
+    -> SELECT *
+
+    -> FROM human_friends.donkeys;
+
++----------+---------+--------+------------+------------------------+
+
+| horse_id | name    | type   | birthdate  | commands               |
+
++----------+---------+--------+------------+------------------------+
+
+|        1 | Thunder | Horse  | 2015-07-21 | Trot, Canter, Gallop   |
+
+|        2 | Storm   | Horse  | 2014-05-05 | Trot, Canter           |
+
+|        3 | Blazer  | Horse  | 2016-02-29 | Trot, Jump, Gallop     |
+
+|        1 | Eeyore  | Donkey | 2017-09-18 | Walk, Carry Load, Bray |
+
+|        2 | Burro   | Donkey | 2019-01-23 | Walk, Bray, Kick       |
+
++----------+---------+--------+------------+------------------------+
+
+5 rows in set (0,03 sec)
+
+
+
+mysql> DROP TABLE IF EXISTS new_table_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE new_table_animals AS 
+
+    -> SELECT id, 
+
+    ->    name, 
+
+    ->    type, 
+
+    ->    birthdate, 
+
+    ->    commands, 
+
+    ->    TIMESTAMPDIFF(Month, birthdate, CURDATE()) AS Age_in_month 
+
+    -> FROM all_animals
+
+    -> WHERE birthdate 
+
+    -> BETWEEN ADDDATE(curdate(), INTERVAL -3 YEAR) AND ADDDATE(CURDATE(), INTERVAL -1 YEAR);
+
+Query OK, 2 rows affected (0,14 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.new_table_animals nta;
+
++----+--------+---------+------------+------------+--------------+
+
+| id | name   | type    | birthdate  | commands   | Age_in_month |
+
++----+--------+---------+------------+------------+--------------+
+
+|  7 | Hammy  | Hamster | 2021-03-10 | Roll, Hide |           35 |
+
+|  8 | Peanut | Hamster | 2021-08-01 | Roll, Spin |           30 |
+
++----+--------+---------+------------+------------+--------------+
+
+2 rows in set (0,01 sec)
+
+
+
+mysql> DROP TABLE IF EXISTS animals;
+
+Query OK, 0 rows affected, 1 warning (0,02 sec)
+
+
+
+mysql> CREATE TABLE animals AS 
+
+    -> SELECT 'From dogs' AS from_table, dog_id, name, type, birthdate, commands
+
+    -> FROM dogs 
+
+    -> UNION
+
+    -> SELECT 'From cats' AS from_table, cat_id, name, type, birthdate, commands
+
+    -> FROM cats 
+
+    -> UNION 
+
+    -> SELECT 'From hamsters' AS from_table, hamster_id, name, type, birthdate, commands
+
+    -> FROM hamsters 
+
+    -> UNION 
+
+    -> SELECT 'From horses' AS from_table, horse_id, name, type, birthdate, commands
+
+    -> FROM horses 
+
+    -> UNION
+
+    -> SELECT 'From camels' AS from_table, camel_id, name, type, birthdate, commands
+
+    -> FROM camels
+
+    -> UNION 
+
+    -> SELECT 'From donkeys' AS from_table, donkey_id, name, type, birthdate, commands
+
+    -> FROM donkeys;
+
+Query OK, 13 rows affected (0,11 sec)
+
+Records: 13  Duplicates: 0  Warnings: 0
+
+
+
+mysql> SELECT *
+
+    -> FROM animals;
+
++---------------+--------+----------+---------+------------+------------------------+
+
+| from_table    | dog_id | name     | type    | birthdate  | commands               |
+
++---------------+--------+----------+---------+------------+------------------------+
+
+| From dogs     |      1 | Fido     | Dog     | 2020-01-01 | Sit, Stay, Fetch       |
+
+| From dogs     |      2 | Buddy    | Dog     | 2018-12-10 | Sit, Paw, Bark         |
+
+| From dogs     |      3 | Bella    | Dog     | 2019-11-11 | Sit, Stay, Roll        |
+
+| From cats     |      1 | Whiskers | Cat     | 2019-05-15 | Sit, Pounce            |
+
+| From cats     |      2 | Smudge   | Cat     | 2020-02-20 | Sit, Pounce, Scrantch  |
+
+| From cats     |      3 | Oliver   | Cat     | 2020-06-30 | Meow, Scratch, Jump    |
+
+| From hamsters |      1 | Hammy    | Hamster | 2021-03-10 | Roll, Hide             |
+
+| From hamsters |      2 | Peanut   | Hamster | 2021-08-01 | Roll, Spin             |
+
+| From horses   |      1 | Thunder  | Horse   | 2015-07-21 | Trot, Canter, Gallop   |
+
+| From horses   |      2 | Storm    | Horse   | 2014-05-05 | Trot, Canter           |
+
+| From horses   |      3 | Blazer   | Horse   | 2016-02-29 | Trot, Jump, Gallop     |
+
+| From donkeys  |      1 | Eeyore   | Donkey  | 2017-09-18 | Walk, Carry Load, Bray |
+
+| From donkeys  |      2 | Burro    | Donkey  | 2019-01-23 | Walk, Bray, Kick       |
+
++---------------+--------+----------+---------+------------+------------------------+
+
+13 rows in set (0,00 sec)
+
+
+
+mysql> 
+
+mysql> SHOW DATABASES;
+
++--------------------+
+
+| Database           |
+
++--------------------+
+
+| human_friends      |
+
+| information_schema |
+
+| mysql              |
+
+| performance_schema |
+
+| sys                |
+
++--------------------+
+
+5 rows in set (0,02 sec)
+
+
+
+mysql> DROP DATABASE IF EXISTS human_friends;
+
+Query OK, 1 row affected (0,25 sec)
+
+
+
+mysql> 
+
+mysql> CREATE DATABASE human_friends;
+
+Query OK, 1 row affected (0,03 sec)
+
+
+
+mysql> 
+
+mysql> USE human_friends;
+
+Database changed
+
+mysql> 
+
+mysql> DROP TABLE IF EXISTS all_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE all_animals (
+
+    -> id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->    birthdate DATE,
+
+    ->     commands VARCHAR(100)
+
+    -> ) COMMENT 'Все животные';
+
+Query OK, 0 rows affected (0,16 sec)
+
+
+
+mysql> INSERT INTO all_animals (id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll'),
+
+    -> (4,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (5,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (6,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump'),
+
+    -> (7,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (8,'Peanut','Hamster','2021-08-01','Roll, Spin'),
+
+    -> (9,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (10,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (11,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop'),
+
+    -> (12,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (13,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (14,'Sahara','Camel','2015-08-14','Walk, Run'),
+
+    -> (15,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (16,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 16 rows affected (0,03 sec)
+
+Records: 16  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS pets;
+
+Query OK, 0 rows affected, 1 warning (0,02 sec)
+
+
+
+mysql> CREATE TABLE pets (
+
+    -> pet_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->    birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (pet_id) REFERENCES all_animals(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Домашние животные';
+
+Query OK, 0 rows affected (0,23 sec)
+
+
+
+mysql> INSERT INTO pets (pet_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll'),
+
+    -> (4,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (5,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (6,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump'),
+
+    -> (7,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (8,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+Query OK, 8 rows affected (0,03 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS pack_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE pack_animals (
+
+    -> pack_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (pack_id) REFERENCES all_animals(id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Вьючные животные';
+
+Query OK, 0 rows affected (0,18 sec)
+
+
+
+mysql> INSERT INTO pack_animals (pack_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop'),
+
+    -> (4,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (5,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (6,'Sahara','Camel','2015-08-14','Walk, Run'),
+
+    -> (7,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (8,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 8 rows affected (0,02 sec)
+
+Records: 8  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS dogs;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE dogs (
+
+    -> dog_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->    type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (dog_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Собаки';
+
+Query OK, 0 rows affected (0,15 sec)
+
+
+
+mysql> INSERT INTO dogs (dog_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Fido','Dog','2020-01-01','Sit, Stay, Fetch'),
+
+    -> (2,'Buddy','Dog','2018-12-10','Sit, Paw, Bark'),
+
+    -> (3,'Bella','Dog','2019-11-11','Sit, Stay, Roll');
+
+Query OK, 3 rows affected (0,03 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS cats;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE cats (
+
+    -> cat_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->    name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (cat_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Кошки';
+
+Query OK, 0 rows affected (0,11 sec)
+
+
+
+mysql> INSERT INTO cats (cat_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Whiskers','Cat','2019-05-15','Sit, Pounce'),
+
+    -> (2,'Smudge','Cat','2020-02-20','Sit, Pounce, Scrantch'),
+
+    -> (3,'Oliver','Cat','2020-06-30','Meow, Scratch, Jump');
+
+Query OK, 3 rows affected (0,02 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS hamsters;
+
+Query OK, 0 rows affected, 1 warning (0,00 sec)
+
+
+
+mysql> CREATE TABLE hamsters (
+
+    -> hamster_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (hamster_id) REFERENCES pets(pet_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Хомяки';
+
+Query OK, 0 rows affected (0,12 sec)
+
+
+
+mysql> INSERT INTO Hamsters (hamster_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (2,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+ERROR 1146 (42S02): Table 'human_friends.Hamsters' doesn't exist
+
+mysql> INSERT INTO hamsters (hamster_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Hammy','Hamster','2021-03-10','Roll, Hide'),
+
+    -> (2,'Peanut','Hamster','2021-08-01','Roll, Spin');
+
+Query OK, 2 rows affected (0,03 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS horses;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE horses (
+
+    -> horse_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (horse_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Лошади';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO Horses (horse_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop');
+
+ERROR 1146 (42S02): Table 'human_friends.Horses' doesn't exist
+
+mysql> INSERT INTO horses (horse_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Thunder','Horse','2015-07-21','Trot, Canter, Gallop'),
+
+    -> (2,'Storm','Horse','2014-05-05','Trot, Canter'),
+
+    -> (3,'Blazer','Horse','2016-02-29','Trot, Jump, Gallop');
+
+Query OK, 3 rows affected (0,05 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS camels;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE camels (
+
+    -> camel_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (camel_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Верблюды';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO camels (camel_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Sandy','Camel','2016-11-03','Walk, Carry Load'),
+
+    -> (2,'Dune','Camel','2018-12-12','Walk, Sit'),
+
+    -> (3,'Sahara','Camel','2015-08-14','Walk, Run');
+
+Query OK, 3 rows affected (0,04 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+
+mysql> DROP TABLE IF EXISTS donkeys;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE donkeys (
+
+    -> donkey_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+
+    ->     name VARCHAR(30),
+
+    ->     type VARCHAR(30),
+
+    ->     birthdate DATE,
+
+    ->     commands VARCHAR(100),
+
+    ->     FOREIGN KEY (donkey_id) REFERENCES pack_animals(pack_id) ON UPDATE CASCADE ON DELETE CASCADE
+
+    -> ) COMMENT 'Ослы';
+
+Query OK, 0 rows affected (0,13 sec)
+
+
+
+mysql> INSERT INTO donkeys (donkey_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (2,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+Query OK, 2 rows affected (0,04 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> INSERT INTO donkeys (donkey_id, name, type, birthdate, commands)
+
+    -> VALUES (1,'Eeyore','Donkey','2017-09-18','Walk, Carry Load, Bray'),
+
+    -> (2,'Burro','Donkey','2019-01-23','Walk, Bray, Kick');
+
+ERROR 1062 (23000): Duplicate entry '1' for key 'donkeys.PRIMARY'
+
+mysql> 
+
+mysql> SHOW TABLES
+
+    -> ^C
+
+mysql> SHOW TABLES;
+
++-------------------------+
+
+| Tables_in_human_friends |
+
++-------------------------+
+
+| all_animals             |
+
+| camels                  |
+
+| cats                    |
+
+| dogs                    |
+
+| donkeys                 |
+
+| hamsters                |
+
+| horses                  |
+
+| pack_animals            |
+
+| pets                    |
+
++-------------------------+
+
+9 rows in set (0,00 sec)
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.camels;
+
++----------+--------+-------+------------+------------------+
+
+| camel_id | name   | type  | birthdate  | commands         |
+
++----------+--------+-------+------------+------------------+
+
+|        1 | Sandy  | Camel | 2016-11-03 | Walk, Carry Load |
+
+|        2 | Dune   | Camel | 2018-12-12 | Walk, Sit        |
+
+|        3 | Sahara | Camel | 2015-08-14 | Walk, Run        |
+
++----------+--------+-------+------------+------------------+
+
+3 rows in set (0,01 sec)
+
+
+
+mysql> DELETE
+
+    -> FROM human_friends.camels
+
+    -> WHERE type = 'Camel';
+
+Query OK, 3 rows affected (0,03 sec)
+
+
+
+mysql> 
+
+mysql> SELECT *
+
+    -> FROM human_friends.camels;
+
+Empty set (0,01 sec)
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.horses
+
+    -> UNION
+
+    -> SELECT *
+
+    -> FROM human_friends.donkeys;
+
++----------+---------+--------+------------+------------------------+
+
+| horse_id | name    | type   | birthdate  | commands               |
+
++----------+---------+--------+------------+------------------------+
+
+|        1 | Thunder | Horse  | 2015-07-21 | Trot, Canter, Gallop   |
+
+|        2 | Storm   | Horse  | 2014-05-05 | Trot, Canter           |
+
+|        3 | Blazer  | Horse  | 2016-02-29 | Trot, Jump, Gallop     |
+
+|        1 | Eeyore  | Donkey | 2017-09-18 | Walk, Carry Load, Bray |
+
+|        2 | Burro   | Donkey | 2019-01-23 | Walk, Bray, Kick       |
+
++----------+---------+--------+------------+------------------------+
+
+5 rows in set (0,03 sec)
+
+
+
+mysql> DROP TABLE IF EXISTS new_table_animals;
+
+Query OK, 0 rows affected, 1 warning (0,01 sec)
+
+
+
+mysql> CREATE TABLE new_table_animals AS 
+
+    -> SELECT id, 
+
+    ->    name, 
+
+    ->    type, 
+
+    ->    birthdate, 
+
+    ->    commands, 
+
+    ->    TIMESTAMPDIFF(Month, birthdate, CURDATE()) AS Age_in_month 
+
+    -> FROM all_animals
+
+    -> WHERE birthdate 
+
+    -> BETWEEN ADDDATE(curdate(), INTERVAL -3 YEAR) AND ADDDATE(CURDATE(), INTERVAL -1 YEAR);
+
+Query OK, 2 rows affected (0,14 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+
+
+
+mysql> SELECT *
+
+    -> FROM human_friends.new_table_animals nta;
+
++----+--------+---------+------------+------------+--------------+
+
+| id | name   | type    | birthdate  | commands   | Age_in_month |
+
++----+--------+---------+------------+------------+--------------+
+
+|  7 | Hammy  | Hamster | 2021-03-10 | Roll, Hide |           35 |
+
+|  8 | Peanut | Hamster | 2021-08-01 | Roll, Spin |           30 |
+
++----+--------+---------+------------+------------+--------------+
+
+2 rows in set (0,01 sec)
+
+
+
+mysql> DROP TABLE IF EXISTS animals;
+
+Query OK, 0 rows affected, 1 warning (0,02 sec)
+
+
+
+mysql> CREATE TABLE animals AS 
+
+    -> SELECT 'From dogs' AS from_table, dog_id, name, type, birthdate, commands
+
+    -> FROM dogs 
+
+    -> UNION
+
+    -> SELECT 'From cats' AS from_table, cat_id, name, type, birthdate, commands
+
+    -> FROM cats 
+
+    -> UNION 
+
+    -> SELECT 'From hamsters' AS from_table, hamster_id, name, type, birthdate, commands
+
+    -> FROM hamsters 
+
+    -> UNION 
+
+    -> SELECT 'From horses' AS from_table, horse_id, name, type, birthdate, commands
+
+    -> FROM horses 
+
+    -> UNION
+
+    -> SELECT 'From camels' AS from_table, camel_id, name, type, birthdate, commands
+
+    -> FROM camels
+
+    -> UNION 
+
+    -> SELECT 'From donkeys' AS from_table, donkey_id, name, type, birthdate, commands
+
+    -> FROM donkeys;
+
+Query OK, 13 rows affected (0,11 sec)
+
+Records: 13  Duplicates: 0  Warnings: 0
+
+
+
+mysql> SELECT *
+
+    -> FROM animals;
+
++---------------+--------+----------+---------+------------+------------------------+
+
+| from_table    | dog_id | name     | type    | birthdate  | commands               |
+
++---------------+--------+----------+---------+------------+------------------------+
+
+| From dogs     |      1 | Fido     | Dog     | 2020-01-01 | Sit, Stay, Fetch       |
+
+| From dogs     |      2 | Buddy    | Dog     | 2018-12-10 | Sit, Paw, Bark         |
+
+| From dogs     |      3 | Bella    | Dog     | 2019-11-11 | Sit, Stay, Roll        |
+
+| From cats     |      1 | Whiskers | Cat     | 2019-05-15 | Sit, Pounce            |
+
+| From cats     |      2 | Smudge   | Cat     | 2020-02-20 | Sit, Pounce, Scrantch  |
+
+| From cats     |      3 | Oliver   | Cat     | 2020-06-30 | Meow, Scratch, Jump    |
+
+| From hamsters |      1 | Hammy    | Hamster | 2021-03-10 | Roll, Hide             |
+
+| From hamsters |      2 | Peanut   | Hamster | 2021-08-01 | Roll, Spin             |
+
+| From horses   |      1 | Thunder  | Horse   | 2015-07-21 | Trot, Canter, Gallop   |
+
+| From horses   |      2 | Storm    | Horse   | 2014-05-05 | Trot, Canter           |
+
+| From horses   |      3 | Blazer   | Horse   | 2016-02-29 | Trot, Jump, Gallop     |
+
+| From donkeys  |      1 | Eeyore   | Donkey  | 2017-09-18 | Walk, Carry Load, Bray |
+
+| From donkeys  |      2 | Burro    | Donkey  | 2019-01-23 | Walk, Bray, Kick       |
+
++---------------+--------+----------+---------+------------+------------------------+
+
+13 rows in set (0,00 sec)
+
+
+
+mysql> 
+mysql> EXIT
+
+Bye
+
+vboxuser@Ubuntu-linux:~$

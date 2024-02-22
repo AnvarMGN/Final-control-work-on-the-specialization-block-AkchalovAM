@@ -1,0 +1,28 @@
+1.
+mkdir ControlWork
+cd ControlWork
+cat >Pets.txt
+Dog Fido, Cat Whiskers, Hamster Hammy
+Ctrl + D
+
+cat >Pack_animals.txt
+Horse Thunder, Camel Sandy, Dokey Burro
+Ctrl + D
+
+ls -l
+-rw-rw-r-- 1 vboxuser vboxuser 40 фев 16 16:31 Pack_animals.txt
+-rw-rw-r-- 1 vboxuser vboxuser 38 фев 16 16:20 Pets.txt
+
+cat Pets.txt Pack_animals.txt > Human_Friends
+
+cat Human_Friends
+Dog Fido, Cat Whiskers, Hamster Hammy
+Horse Thunder, Camel Sandy, Dokey Burro
+
+mv Human_Friends Human_Friends_NEW
+
+pwd
+/home/vboxuser/ControlWork
+
+vboxuser@Ubuntu-linux:~/ControlWork$ ls
+Human_Friends_NEW  Pack_animals.txt  Pets.txt

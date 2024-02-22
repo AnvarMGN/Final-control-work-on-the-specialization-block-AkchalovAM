@@ -1,0 +1,37 @@
+Акчалов Анвар Мухаметжанович 23.02.2024 Разработчик/Программист/ будни утро/4829/ 12.07.23
+
+261  mkdir ControlWork
+262  cd ControlWork/
+263  cat >Pets.txt
+264  cat >Pack_animals.txt
+265  ls -l
+266  cat Pets.txt Pack_animals.txt > Human_Friends
+267  cat Human_Friends
+268  mv Human_Friends Human_Friends_NEW
+269  cat Human_Friends_NEW 
+270  pwd
+271  ls
+272  cd /
+273  cd /home/vboxuser/
+274  mkdir To_move
+275  cd ControlWork
+276  mv Human_Friends_NEW /home/vboxuser/To_move
+277  ls -l
+278  cd /
+279  sudo service --status-all | grep mysql
+280  mysqld --version
+281  sudo apt install mysql-server-core-8.0
+282  sudo apt purge mysql-server mysql-common mysql-server-core-* mysql-client-core-*
+283  sudo apt purge mysql-apt-config
+284  ls /etc/apt/sources.list.d/
+285  cd Загрузки/
+286  ls
+287  sudo dpkg -i mysql-apt-config_0.8.29-1_all.deb
+288  sudo apt-get update
+289  sudo apt install mysql-server mysql-client
+290  systemctl status mysql
+291  wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+292  sudo dpkg -i mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+293  sudo dpkg -r mysql-connector-j
+294  sudo apt-get autoremove
+295  history

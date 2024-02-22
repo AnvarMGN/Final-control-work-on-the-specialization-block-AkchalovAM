@@ -1,0 +1,50 @@
+4.
+Скачиваем пакет для установки:
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+
+--2024-02-16 20:32:13--  https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+Распознаётся dev.mysql.com (dev.mysql.com)… 23.52.29.249, 2a02:26f0:1200:5af::2e31, 2a02:26f0:1200:5a2::2e31
+Подключение к dev.mysql.com (dev.mysql.com)|23.52.29.249|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 302 Moved Temporarily
+Адрес: https://cdn.mysql.com//archives/mysql-connector-java-8.0/mysql-connector-j_8.0.32-1ubuntu22.04_all.deb [переход]
+--2024-02-16 20:32:14--  https://cdn.mysql.com//archives/mysql-connector-java-8.0/mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+Распознаётся cdn.mysql.com (cdn.mysql.com)… 23.210.173.94, 2a02:26f0:1200:59f::1d68, 2a02:26f0:1200:5b0::1d68
+Подключение к cdn.mysql.com (cdn.mysql.com)|23.210.173.94|:443... соединение установлено.
+HTTP-запрос отправлен. Ожидание ответа… 200 OK
+Длина: 2429088 (2,3M) [application/x-debian-package]
+Сохранение в: ‘mysql-connector-j_8.0.32-1ubuntu22.04_all.deb’
+mysql-connector-j_8 100%[===================>]   2,32M  3,69MB/s    за 0,6s    
+2024-02-16 20:32:15 (3,69 MB/s) - ‘mysql-connector-j_8.0.32-1ubuntu22.04_all.deb’ сохранён [2429088/2429088]
+
+
+Устанавливаем пакет mysql-connector-j_8.0.32-1ubuntu22.04_all.deb:
+sudo dpkg -i mysql-connector-j_8.0.32-1ubuntu22.04_all.deb
+
+Выбор ранее не выбранного пакета mysql-connector-j.
+(Чтение базы данных … на данный момент установлено 243932 файла и каталога.)
+Подготовка к распаковке mysql-connector-j_8.0.32-1ubuntu22.04_all.deb …
+Распаковывается mysql-connector-j (8.0.32-1ubuntu22.04) …
+Настраивается пакет mysql-connector-j (8.0.32-1ubuntu22.04) …
+
+
+Удаляем пакет и его сопутствующие пакеты:
+sudo dpkg -r mysql-connector-j
+
+(Чтение базы данных … на данный момент установлен 243941 файл и каталог.)
+Удаляется mysql-connector-j (8.0.32-1ubuntu22.04) 
+
+sudo apt-get autoremove
+
+Чтение списков пакетов… Готово
+Построение дерева зависимостей… Готово
+Чтение информации о состоянии… Готово         
+Следующие пакеты будут УДАЛЕНЫ:
+  libevent-core-2.1-7 libevent-pthreads-2.1-7 libprotobuf-lite23
+Обновлено 0 пакетов, установлено 0 новых пакетов, для удаления отмечено 3 пакетов, и 229 пакетов не обновлено.
+После данной операции объём занятого дискового пространства уменьшится на 1 055 kB.
+Хотите продолжить? [Д/н] y
+(Чтение базы данных … на данный момент установлено 243932 файла и каталога.)
+Удаляется libevent-pthreads-2.1-7:amd64 (2.1.12-stable-1build3) …
+Удаляется libevent-core-2.1-7:amd64 (2.1.12-stable-1build3) …
+Удаляется libprotobuf-lite23:amd64 (3.12.4-1ubuntu7.22.04.1) …
+Обрабатываются триггеры для libc-bin (2.35-0ubuntu3.6) …

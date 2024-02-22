@@ -1,0 +1,11 @@
+2.
+cd /
+cd /home/vboxuser/
+
+mkdir To_move
+cd ControlWork
+
+mv Human_Friends_NEW /home/vboxuser/To_move
+
+ls -l
+-rw-rw-r-- 1 vboxuser vboxuser 78 фев 16 16:36 Human_Friends
